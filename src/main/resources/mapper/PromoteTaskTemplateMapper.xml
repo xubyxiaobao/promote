@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.promote.dao.PromoteTaskTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.system.promote.entity.PromoteTaskTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="accept_user" property="acceptUser" jdbcType="INTEGER" />
+    <result column="interval_unit" property="intervalUnit" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="accept_time" property="acceptTime" jdbcType="TIMESTAMP" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, create_user, accept_user, interval_unit, times, status, 
+    accept_time, score, description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from promote_task_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from promote_task_template
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.system.promote.entity.PromoteTaskTemplate" >
+    insert into promote_task_template (
+      create_user, accept_user, interval_unit, 
+      times, status, accept_time, 
+      score, description)
+    values (#{createUser,jdbcType=INTEGER}, #{acceptUser,jdbcType=INTEGER}, #{intervalUnit,jdbcType=VARCHAR},
+      #{times,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{acceptTime,jdbcType=TIMESTAMP}, 
+      #{score,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.promote.entity.PromoteTaskTemplate" >
+    insert into promote_task_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="acceptUser != null" >
+        accept_user,
+      </if>
+      <if test="intervalUnit != null" >
+        interval_unit,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="acceptTime != null" >
+        accept_time,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="acceptUser != null" >
+        #{acceptUser,jdbcType=INTEGER},
+      </if>
+      <if test="intervalUnit != null" >
+        #{intervalUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="acceptTime != null" >
+        #{acceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.promote.entity.PromoteTaskTemplate" >
+    update promote_task_template
+    <set >
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="acceptUser != null" >
+        accept_user = #{acceptUser,jdbcType=INTEGER},
+      </if>
+      <if test="intervalUnit != null" >
+        interval_unit = #{intervalUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="acceptTime != null" >
+        accept_time = #{acceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.promote.entity.PromoteTaskTemplate" >
+    update promote_task_template
+    set create_user = #{createUser,jdbcType=INTEGER},
+      accept_user = #{acceptUser,jdbcType=INTEGER},
+      interval_unit = #{intervalUnit,jdbcType=VARCHAR},
+      times = #{times,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      accept_time = #{acceptTime,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
