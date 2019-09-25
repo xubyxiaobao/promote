@@ -2,6 +2,7 @@ CREATE database promote;
 
 CREATE TABLE `promote_user` (
 	`id` INT PRIMARY KEY AUTO_INCREMENT,
+	`account` VARCHAR(64) not null comment '登录账号',
 	`name`	VARCHAR(64) not null comment '姓名'
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
