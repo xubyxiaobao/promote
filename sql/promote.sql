@@ -1,10 +1,92 @@
 CREATE database promote;
 
-CREATE TABLE `promote_user` (
-	`id` INT PRIMARY KEY AUTO_INCREMENT,
-	`account` VARCHAR(64) not null comment '登录账号',
-	`name`	VARCHAR(64) not null comment '姓名'
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+create table `promote_user`(
+  `id`         bigint not null auto_increment,
+  `username`  varchar(100) not null,
+  `email`  varchar(100) not null,
+  `mobile_phone_number`  varchar(20) not null,
+  `password`  varchar(100) not null,
+  `salt`       varchar(10) ,
+  `create_date` timestamp not null default CURRENT_TIMESTAMP,
+  `status`    varchar(50),
+  `deleted`   bool,
+  `admin`     bool,
+  constraint `pk_sys_user` primary key(`id`),
+  constraint `unique_promote_user_username` unique(`username`),
+  constraint `unique_promote_user_email` unique(`email`),
+  constraint `unique_promote_user_mobile_phone_number` unique(`mobile_phone_number`),
+  index `idx_sys_user_status` (`status`)
+) charset=utf8 ENGINE=InnoDB;
+alter table `promote_user` auto_increment=1000;
+
+create table `promote_resource`(
+  `id`         bigint not null auto_increment,
+  `name`      varchar(100) not null ,
+  `identity`  varchar(100) not null,
+  `url`      varchar(200) not null,
+  `parent_id` bigint ,
+  `parent_ids`  varchar(200) default '',
+  `is_show`       bool,
+  constraint `pk_sys_resource` primary key(`id`),
+  index `idx_promote_resource_name` (`name`),
+  index `idx_promote_resource_identity` (`identity`),
+  index `idx_promote_resource_user` (`url`),
+  index `idx_promote_resource_parent_id` (`parent_id`)
+) charset=utf8 ENGINE=InnoDB;
+alter table `promote_resource` auto_increment=1000;;
+
+create table `promote_permission`(
+  `id`         bigint not null auto_increment,
+  `name`      varchar(100),
+  `permission`  varchar(100),
+  `description`      varchar(200),
+  `is_show`       bool,
+  constraint `pk_sys_permission` primary key(`id`),
+  index idx_promote_permission_name (`name`),
+  index idx_promote_permission_permission (`permission`),
+  index idx_promote_permission_show (`is_show`)
+) charset=utf8 ENGINE=InnoDB;;
+alter table `promote_permission` auto_increment=1000;;
+
+create table `promote_role`(
+  `id`         bigint not null auto_increment,
+  `name`      varchar(100),
+  `role`  varchar(100),
+  `description`      varchar(200),
+  `is_show`       bool,
+  constraint `pk_promote_role` primary key(`id`),
+  index `idx_promote_role_name` (`name`),
+  index `idx_promote_role_role` (`role`),
+  index `idx_promote_role_show` (`is_show`)
+) charset=utf8 ENGINE=InnoDB;;
+alter table `promote_role` auto_increment=1000;;
+
+
+create table `promote_role_resource_permission`(
+  `id`         bigint not null auto_increment,
+  `role_id`   bigint,
+  `resource_id` bigint,
+  `permission_ids` varchar(500),
+  constraint `pk_promote_role_resource_permission` primary key(`id`),
+  constraint `unique_promote_role_resource_permission` unique(`role_id`, `resource_id`)
+) charset=utf8 ENGINE=InnoDB;;
+alter table `promote_role_resource_permission` auto_increment=1000;;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 CREATE TABLE `promote_task_template`(
 	`id` INT PRIMARY KEY AUTO_INCREMENT,
